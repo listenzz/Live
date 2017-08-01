@@ -1,0 +1,25 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f6f9ff"
+    tools:context="com.shundaojia.live.sample.BlankFragment">
+
+    <TextView
+        android:layout_marginTop="64dp"
+        android:layout_width="match_parent"
+        android:textSize="24dp"
+        android:gravity="center"
+        android:text="Show a Fragment when return"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:layout_gravity="center"
+        android:id="@+id/button"
+        android:text="Hide"
+        android:layout_marginRight="64dp"
+        android:layout_marginLeft="64dp"
+        android:layout_width="match_parent"
+        android:layout_height="48dp" />
+
+</FrameLayout>
