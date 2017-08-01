@@ -25,6 +25,7 @@ android {
 dependencies {
 
     compile project(':library')
+    // compile 'com.shundaojia:live:0.1.0'
 
     // Support libraries
     compile "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
