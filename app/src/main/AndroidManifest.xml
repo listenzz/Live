@@ -10,7 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity"
-            android:label="Live MainActivity"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,7 +18,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".SecondActivity"
-            android:label="Live SecondActivity"
+            android:label="SecondActivity"
             />
     </application>
 
