@@ -1,9 +1,11 @@
 package com.shundaojia.live.sample;
 
 import android.app.Activity;
-import android.arch.lifecycle.LifecycleActivity;
+import android.arch.lifecycle.LifecycleRegistry;
+import android.arch.lifecycle.LifecycleRegistryOwner;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -15,7 +17,9 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.subjects.PublishSubject;
 import io.reactivex.subjects.Subject;
 
-public class MainActivity extends LifecycleActivity {
+public class MainActivity extends AppCompatActivity implements LifecycleRegistryOwner {
+
+    private final LifecycleRegistry mRegistry = new LifecycleRegistry(this);
 
     TextView textView;
 
@@ -61,5 +65,11 @@ public class MainActivity extends LifecycleActivity {
         if (requestCode == 100 && resultCode == Activity.RESULT_OK) {
             subject.onNext("show fragment");
         }
+    }
+
+
+    @Override
+    public LifecycleRegistry getLifecycle() {
+        return mRegistry;
     }
 }

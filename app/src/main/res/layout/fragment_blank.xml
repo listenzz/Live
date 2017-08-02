@@ -16,6 +16,7 @@
     <Button
         android:layout_gravity="center"
         android:id="@+id/button"
+        android:inputType="textCapWords"
         android:text="Hide"
         android:layout_marginRight="64dp"
         android:layout_marginLeft="64dp"

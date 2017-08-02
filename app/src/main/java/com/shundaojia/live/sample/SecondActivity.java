@@ -1,11 +1,13 @@
 package com.shundaojia.live.sample;
 
-import android.arch.lifecycle.LifecycleActivity;
+import android.arch.lifecycle.LifecycleRegistry;
+import android.arch.lifecycle.LifecycleRegistryOwner;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.shundaojia.live.Live;
 
@@ -17,7 +19,11 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 
-public class SecondActivity extends LifecycleActivity {
+public class SecondActivity extends AppCompatActivity implements LifecycleRegistryOwner {
+
+    private static final String TAG = "SecondActivity";
+
+    private final LifecycleRegistry mRegistry = new LifecycleRegistry(this);
 
     TextView textView;
     Button button;
@@ -43,24 +49,44 @@ public class SecondActivity extends LifecycleActivity {
                 .doOnDispose(new Action() {
                     @Override
                     public void run() throws Exception {
-                        Toast.makeText(getApplicationContext(), "Second Dispose", Toast.LENGTH_SHORT).show();
+                        Log.w(TAG, "Second Dispose");
                     }
                 })
                 .compose(Live.<Long>bindLifecycle(this))
+                .doOnComplete(new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        Log.w(TAG, "doOnComplete");
+                    }
+                })
                 .subscribe(new Consumer<Long>() {
                     @Override
                     public void accept(@NonNull Long aLong) throws Exception {
+                        Log.w(TAG, String.valueOf(aLong));
                         textView.setText(String.valueOf(aLong));
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(@NonNull Throwable throwable) throws Exception {
+
+                    }
+                }, new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        Log.w(TAG, "complete");
                     }
                 });
     }
 
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Toast.makeText(getApplicationContext(), "Second Destroy", Toast.LENGTH_SHORT).show();
+        Log.w(TAG, "onDestroy");
     }
 
 
+    @Override
+    public LifecycleRegistry getLifecycle() {
+        return mRegistry;
+    }
 }

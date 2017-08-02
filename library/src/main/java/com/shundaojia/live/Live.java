@@ -25,6 +25,8 @@ import io.reactivex.subjects.PublishSubject;
 
 public final class Live<T> implements ObservableTransformer<T, T>, LifecycleObserver {
 
+    private final static String TAG = "Live";
+
     public static <T> ObservableTransformer<T, T> bindLifecycle(LifecycleOwner owner) {
         return new Live<>(owner);
     }
@@ -95,7 +97,7 @@ public final class Live<T> implements ObservableTransformer<T, T>, LifecycleObse
     @OnLifecycleEvent(Lifecycle.Event.ON_ANY)
     void onStateChange() {
         if (this.mLifecycleOwner.getLifecycle().getCurrentState() == Lifecycle.State.DESTROYED) {
-            if (mDisposable != null) {
+            if (mDisposable != null && !mDisposable.isDisposed()) {
                 mDisposable.dispose();
             }
             mLifecycleOwner.getLifecycle().removeObserver(this);

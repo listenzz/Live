@@ -12,7 +12,7 @@ public class MainActivity extends LifecycleActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         mObservable
-                .compose(Live.<User>bindLifecycle(this))
+                .compose(Live.bindLifecycle(this))
                 .subscribe();
 
     }
