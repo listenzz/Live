@@ -32,5 +32,4 @@ public class BlankFragment extends Fragment {
         manager.beginTransaction().remove(this).commit();
     }
 
-
 }

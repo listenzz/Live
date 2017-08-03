@@ -23,5 +23,14 @@ public class MainActivity extends LifecycleActivity {
 ## Installation
 
 ```groovy
-compile 'com.shundaojia:live:0.1.0'
+allprojects {
+    repositories {
+        maven { url 'https://maven.google.com' }
+        jcenter()
+    }
+}
+```
+
+```groovy
+compile 'com.shundaojia:live:0.1.1'
 ```
