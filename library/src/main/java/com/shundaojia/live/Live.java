@@ -25,8 +25,6 @@ import io.reactivex.subjects.PublishSubject;
 
 public final class Live<T> implements ObservableTransformer<T, T>, LifecycleObserver {
 
-    private final static String TAG = "Live";
-
     public static <T> ObservableTransformer<T, T> bindLifecycle(LifecycleOwner owner) {
         return new Live<>(owner);
     }
