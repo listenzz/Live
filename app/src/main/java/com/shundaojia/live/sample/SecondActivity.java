@@ -1,7 +1,5 @@
 package com.shundaojia.live.sample;
 
-import android.arch.lifecycle.LifecycleRegistry;
-import android.arch.lifecycle.LifecycleRegistryOwner;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -19,11 +17,9 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 
-public class SecondActivity extends AppCompatActivity implements LifecycleRegistryOwner {
+public class SecondActivity extends AppCompatActivity {
 
     private static final String TAG = "SecondActivity";
-
-    private final LifecycleRegistry mRegistry = new LifecycleRegistry(this);
 
     TextView textView;
     Button button;
@@ -84,9 +80,4 @@ public class SecondActivity extends AppCompatActivity implements LifecycleRegist
         Log.w(TAG, "onDestroy");
     }
 
-
-    @Override
-    public LifecycleRegistry getLifecycle() {
-        return mRegistry;
-    }
 }

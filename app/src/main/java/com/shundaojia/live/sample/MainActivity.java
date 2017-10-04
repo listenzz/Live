@@ -1,8 +1,6 @@
 package com.shundaojia.live.sample;
 
 import android.app.Activity;
-import android.arch.lifecycle.LifecycleRegistry;
-import android.arch.lifecycle.LifecycleRegistryOwner;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -17,9 +15,7 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.subjects.PublishSubject;
 import io.reactivex.subjects.Subject;
 
-public class MainActivity extends AppCompatActivity implements LifecycleRegistryOwner {
-
-    private final LifecycleRegistry mRegistry = new LifecycleRegistry(this);
+public class MainActivity extends AppCompatActivity {
 
     TextView textView;
 
@@ -67,9 +63,4 @@ public class MainActivity extends AppCompatActivity implements LifecycleRegistry
         }
     }
 
-
-    @Override
-    public LifecycleRegistry getLifecycle() {
-        return mRegistry;
-    }
 }

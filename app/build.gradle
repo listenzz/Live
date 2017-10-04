@@ -7,8 +7,8 @@ android {
 
     defaultConfig {
         applicationId "com.shundaojia.live.sample"
-        minSdkVersion 15
-        targetSdkVersion 25
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -25,7 +25,7 @@ android {
 dependencies {
 
     compile project(':library')
-    // compile 'com.shundaojia:live:0.1.1'
+    // compile 'com.shundaojia:live:1.0.0'
 
     // Support libraries
     compile "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"

@@ -7,7 +7,7 @@ if you just want to take the stream until a specific lifecycle event happen, may
 
 ```java
 
-public class MainActivity extends LifecycleActivity {
+public class MainActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -32,5 +32,16 @@ allprojects {
 ```
 
 ```groovy
-compile 'com.shundaojia:live:0.1.1'
+compile 'com.shundaojia:live:1.0.0'
+
+//  using Support Library 26.1+
+compile 'com.android.support:appcompat-v7:26.1.0'
+compile 'com.android.support:support-v4:26.1.0'
+compile 'com.android.support:design:26.1.0'
+
+compile 'com.android.support.constraint:constraint-layout:1.0.2'
+
+// RxJava
+compile "io.reactivex.rxjava2:rxandroid:$rootProject.rxandroidVersion"
+compile "io.reactivex.rxjava2:rxjava:$rootProject.rxjavaVersion"
 ```
