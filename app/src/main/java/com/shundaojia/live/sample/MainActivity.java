@@ -28,8 +28,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        textView = (TextView) findViewById(R.id.text);
-        button = (Button) findViewById(R.id.button);
+        textView = findViewById(R.id.text);
+        button = findViewById(R.id.button);
 
         subject = PublishSubject.create();
 

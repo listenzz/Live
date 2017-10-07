@@ -17,9 +17,6 @@ import io.reactivex.subjects.PublishSubject;
 
 /**
  * A Rx Transformer handle Android Lifecycle as same as LiveData.<p>
- * if you just want to take the stream until a specific lifecycle event happen,
- * maybe <a href = "https://github.com/trello/RxLifecycle">RxLifecycle</a> is that you really want.
- * <p>
  * Created by listen on 2017/8/1.
  */
 
