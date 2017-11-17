@@ -6,10 +6,10 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion 9
-        targetSdkVersion rootProject.targetSdkVersion
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
-        versionName "1.0.0"
+        versionName "0.1.1"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -23,11 +23,17 @@ android {
 }
 
 dependencies {
-    provided "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
+    compile "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
+    compile "com.android.support:support-v4:$rootProject.supportLibraryVersion"
+    compile "com.android.support:design:$rootProject.supportLibraryVersion"
+    // Architecture components
+    compile "android.arch.lifecycle:runtime:$rootProject.architectureComponentsVersion"
+    compile "android.arch.lifecycle:extensions:$rootProject.architectureComponentsVersion"
+    annotationProcessor "android.arch.lifecycle:compiler:$rootProject.architectureComponentsVersion"
 
     // RxJava
-    provided "io.reactivex.rxjava2:rxandroid:$rootProject.rxandroidVersion"
-    provided "io.reactivex.rxjava2:rxjava:$rootProject.rxjavaVersion"
+    compile "io.reactivex.rxjava2:rxandroid:$rootProject.rxandroidVersion"
+    compile "io.reactivex.rxjava2:rxjava:$rootProject.rxjavaVersion"
 
     testCompile "junit:junit:$rootProject.ext.junitVersion"
 
@@ -37,7 +43,7 @@ publish {
     userOrg = 'listenzz'
     groupId = 'com.shundaojia'
     artifactId = 'live'
-    publishVersion = '1.0.0'
+    publishVersion = '0.1.1'
     desc = 'A Rx Transformer handle Android Lifecycle as same as LiveData.'
     website = 'https://github.com/listenzz/Live'
 }

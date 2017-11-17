@@ -7,8 +7,8 @@ android {
 
     defaultConfig {
         applicationId "com.shundaojia.live.sample"
-        minSdkVersion rootProject.minSdkVersion
-        targetSdkVersion rootProject.targetSdkVersion
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -20,12 +20,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
 }
 
 dependencies {
 
     compile project(':library')
-    // compile 'com.shundaojia:live:1.0.0'
+    // compile 'com.shundaojia:live:0.1.1'
 
     // Support libraries
     compile "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
