@@ -41,20 +41,14 @@ public class SecondActivity extends AppCompatActivity {
         });
 
         Observable.interval(1, TimeUnit.SECONDS)
-                .observeOn(AndroidSchedulers.mainThread())
                 .doOnDispose(new Action() {
                     @Override
                     public void run() throws Exception {
-                        Log.w(TAG, "Second Dispose");
+                        Log.w(TAG, "do dispose");
                     }
                 })
+                .observeOn(AndroidSchedulers.mainThread())
                 .compose(Live.<Long>bindLifecycle(this))
-                .doOnComplete(new Action() {
-                    @Override
-                    public void run() throws Exception {
-                        Log.w(TAG, "doOnComplete");
-                    }
-                })
                 .subscribe(new Consumer<Long>() {
                     @Override
                     public void accept(@NonNull Long aLong) throws Exception {
@@ -64,7 +58,7 @@ public class SecondActivity extends AppCompatActivity {
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(@NonNull Throwable throwable) throws Exception {
-
+                        Log.e(TAG, "", throwable);
                     }
                 }, new Action() {
                     @Override

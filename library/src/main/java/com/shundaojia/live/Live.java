@@ -6,13 +6,15 @@ import android.arch.lifecycle.LifecycleOwner;
 import android.arch.lifecycle.OnLifecycleEvent;
 import android.os.Looper;
 import android.support.annotation.MainThread;
+import android.util.Log;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;
-import io.reactivex.Observer;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
 import io.reactivex.subjects.PublishSubject;
 
 /**
@@ -21,6 +23,8 @@ import io.reactivex.subjects.PublishSubject;
  */
 
 public final class Live<T> implements ObservableTransformer<T, T>, LifecycleObserver {
+
+    private static final String TAG = "Live";
 
     public static <T> ObservableTransformer<T, T> bindLifecycle(LifecycleOwner owner) {
         return new Live<>(owner);
@@ -52,38 +56,31 @@ public final class Live<T> implements ObservableTransformer<T, T>, LifecycleObse
 
             mLifecycleOwner.getLifecycle().addObserver(this);
 
-            upstream.subscribe(new Observer<T>() {
+            mDisposable = upstream.subscribe(new Consumer<T>() {
                 @Override
-                public void onSubscribe(@NonNull Disposable d) {
-                    assertMainThread();
-                    mDisposable = d;
-                }
-
-                @Override
-                public void onNext(@NonNull T t) {
+                public void accept(T t) throws Exception {
                     assertMainThread();
                     ++ mVersion;
                     mData = t;
                     considerNotify();
                 }
-
+            }, new Consumer<Throwable>() {
                 @Override
-                public void onError(@NonNull Throwable e) {
+                public void accept(Throwable throwable) throws Exception {
                     assertMainThread();
-                    if (!mDisposable.isDisposed()) {
-                        mSubject.onError(e);
-                    }
+                    mSubject.onError(throwable);
+
                 }
-
+            }, new Action() {
                 @Override
-                public void onComplete() {
+                public void run() throws Exception {
                     assertMainThread();
-                    if (!mDisposable.isDisposed()) {
-                        mSubject.onComplete();
-                    }
+                    mSubject.onComplete();
                 }
             });
+
             return mSubject;
+
         } else {
             return Observable.empty();
         }
@@ -93,7 +90,9 @@ public final class Live<T> implements ObservableTransformer<T, T>, LifecycleObse
     void onStateChange() {
         if (this.mLifecycleOwner.getLifecycle().getCurrentState() == Lifecycle.State.DESTROYED) {
             if (mDisposable != null && !mDisposable.isDisposed()) {
+                Log.i(TAG, "dispose upstream");
                 mDisposable.dispose();
+                mSubject.onComplete();
             }
             mLifecycleOwner.getLifecycle().removeObserver(this);
         } else {

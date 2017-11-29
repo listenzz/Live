@@ -15,7 +15,7 @@ public class BlankFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_blank, container, false);
-        Button button = (Button) root.findViewById(R.id.button);
+        Button button = root.findViewById(R.id.button);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
