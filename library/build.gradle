@@ -29,17 +29,11 @@ android {
 }
 
 dependencies {
-    compile "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
-    compile "com.android.support:support-v4:$rootProject.supportLibraryVersion"
-    compile "com.android.support:design:$rootProject.supportLibraryVersion"
-    // Architecture components
-    compile "android.arch.lifecycle:runtime:$rootProject.architectureComponentsVersion"
-    compile "android.arch.lifecycle:extensions:$rootProject.architectureComponentsVersion"
-    annotationProcessor "android.arch.lifecycle:compiler:$rootProject.architectureComponentsVersion"
+    implementation "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
 
     // RxJava
-    compile "io.reactivex.rxjava2:rxandroid:$rootProject.rxandroidVersion"
-    compile "io.reactivex.rxjava2:rxjava:$rootProject.rxjavaVersion"
+    implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rxandroidVersion"
+    implementation "io.reactivex.rxjava2:rxjava:$rootProject.rxjavaVersion"
 
     testCompile "junit:junit:$rootProject.ext.junitVersion"
 
