@@ -16,14 +16,7 @@ public class BlankFragment extends Fragment {
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_blank, container, false);
         Button button = root.findViewById(R.id.button);
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                hide();
-            }
-        });
-
+        button.setOnClickListener(it -> hide());
         return root;
     }
 

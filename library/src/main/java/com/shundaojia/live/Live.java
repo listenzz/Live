@@ -13,8 +13,6 @@ import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Action;
-import io.reactivex.functions.Consumer;
 import io.reactivex.subjects.PublishSubject;
 
 /**
@@ -53,32 +51,19 @@ public final class Live<T> implements ObservableTransformer<T, T>, LifecycleObse
     public ObservableSource<T> apply(@NonNull Observable<T> upstream) {
         assertMainThread();
         if (mLifecycleOwner.getLifecycle().getCurrentState() != Lifecycle.State.DESTROYED) {
-
             mLifecycleOwner.getLifecycle().addObserver(this);
-
-            mDisposable = upstream.subscribe(new Consumer<T>() {
-                @Override
-                public void accept(T t) throws Exception {
+            mDisposable = upstream.subscribe(it -> {
                     assertMainThread();
                     ++ mVersion;
-                    mData = t;
+                    mData = it;
                     considerNotify();
-                }
-            }, new Consumer<Throwable>() {
-                @Override
-                public void accept(Throwable throwable) throws Exception {
+            }, it -> {
                     assertMainThread();
-                    mSubject.onError(throwable);
-
-                }
-            }, new Action() {
-                @Override
-                public void run() throws Exception {
+                    mSubject.onError(it);
+            }, () -> {
                     assertMainThread();
                     mSubject.onComplete();
-                }
             });
-
             return mSubject;
 
         } else {
@@ -92,7 +77,6 @@ public final class Live<T> implements ObservableTransformer<T, T>, LifecycleObse
             if (mDisposable != null && !mDisposable.isDisposed()) {
                 Log.i(TAG, "dispose upstream");
                 mDisposable.dispose();
-                mSubject.onComplete();
             }
             mLifecycleOwner.getLifecycle().removeObserver(this);
         } else {
