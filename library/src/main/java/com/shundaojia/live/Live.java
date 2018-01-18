@@ -64,8 +64,8 @@ public final class Live<T> implements ObservableTransformer<T, T>, LifecycleObse
                     assertMainThread();
                     mSubject.onComplete();
             });
-            return mSubject;
 
+            return  mSubject.doOnDispose(mDisposable::dispose);
         } else {
             return Observable.empty();
         }

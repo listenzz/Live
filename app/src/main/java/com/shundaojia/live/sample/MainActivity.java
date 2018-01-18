@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         button = findViewById(R.id.button);
 
         subject = PublishSubject.create();
-
+        
         button.setOnClickListener( it -> {
                 Intent intent = new Intent(MainActivity.this, SecondActivity.class);
                 startActivityForResult(intent, 100);
