@@ -60,10 +60,7 @@ public final class Live<T> implements ObservableTransformer<T, T>, LifecycleObse
             }, it -> {
                     assertMainThread();
                     mSubject.onError(it);
-            }, () -> {
-                    assertMainThread();
-                    mSubject.onComplete();
-            });
+            }, this::assertMainThread);
 
             return  mSubject.doOnDispose(mDisposable::dispose);
         } else {
@@ -77,6 +74,9 @@ public final class Live<T> implements ObservableTransformer<T, T>, LifecycleObse
             if (mDisposable != null && !mDisposable.isDisposed()) {
                 Log.i(TAG, "dispose upstream");
                 mDisposable.dispose();
+            }
+            if (!mSubject.hasComplete()) {
+                mSubject.onComplete();
             }
             mLifecycleOwner.getLifecycle().removeObserver(this);
         } else {
@@ -96,7 +96,7 @@ public final class Live<T> implements ObservableTransformer<T, T>, LifecycleObse
             if (isActiveState(mLifecycleOwner.getLifecycle().getCurrentState())) {
                 if (mLastVersion < mVersion) {
                     mLastVersion = mVersion;
-                    if (mDisposable != null && !mDisposable.isDisposed()) {
+                    if (!mSubject.hasComplete()) {
                         mSubject.onNext(mData);
                     }
                 }
