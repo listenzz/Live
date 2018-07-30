@@ -15,7 +15,7 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
-        versionName "1.0.2"
+        versionName "1.1.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -43,7 +43,7 @@ publish {
     userOrg = 'listenzz'
     groupId = 'com.shundaojia'
     artifactId = 'live'
-    publishVersion = '1.0.2'
+    publishVersion = '1.1.0'
     desc = 'A Rx Transformer handle Android Lifecycle as same as LiveData.'
     website = 'https://github.com/listenzz/Live'
 }

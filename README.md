@@ -32,7 +32,7 @@ allprojects {
 ```
 
 ```groovy
-compile 'com.shundaojia:live:1.0.2'
+compile 'com.shundaojia:live:1.1.0'
 
 //  using Support Library 26.1+
 compile 'com.android.support:appcompat-v7:26.1.0'
