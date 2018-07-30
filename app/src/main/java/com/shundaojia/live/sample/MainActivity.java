@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.shundaojia.live.Live;
+import com.shundaojia.live.SimpleObserver;
 
 import io.reactivex.subjects.PublishSubject;
 import io.reactivex.subjects.Subject;
@@ -29,14 +30,19 @@ public class MainActivity extends AppCompatActivity {
         button = findViewById(R.id.button);
 
         subject = PublishSubject.create();
-        
-        button.setOnClickListener( it -> {
-                Intent intent = new Intent(MainActivity.this, SecondActivity.class);
-                startActivityForResult(intent, 100);
+
+        button.setOnClickListener(it -> {
+            Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+            startActivityForResult(intent, 100);
         });
 
         subject.compose(Live.bindLifecycle(this))
-                .subscribe( it -> showFragment() );
+                .subscribe(new SimpleObserver<String>() {
+                    @Override
+                    public void onNext(String s) {
+                        showFragment();
+                    }
+                });
     }
 
     private void showFragment() {
